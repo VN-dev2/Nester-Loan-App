@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Loan Status - Nester Loan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #a0aec0;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0f3460;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .error {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+            border-radius: 12px;
+            padding: 16px;
+            color: #c53030;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .result {
+            margin-top: 24px;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .result.approved {
+            background: #f0fff4;
+            border: 2px solid #68d391;
+        }
+
+        .result.declined {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+        }
+
+        .result.pending {
+            background: #fffff0;
+            border: 2px solid #f6e05e;
+        }
+
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .result h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .result.approved h2 {
+            color: #276749;
+        }
+
+        .result.declined h2 {
+            color: #c53030;
+        }
+
+        .result.pending h2 {
+            color: #d69e2e;
+        }
+
+        .result p {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+
+        .result .amount {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f3460;
+            margin: 12px 0;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .back a {
+            color: #a0aec0;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .back a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Nester Loan</h1>
+            <p>Check your loan application status</p>
+        </div>
+
+        <div class="card">
+            <form action="/status" method="POST">
+                <label>Your Phone Number</label>
+                <input type="tel" name="phone" placeholder="e.g. 024XXXXXXX" required>
+                <button type="submit">🔍 Check My Status</button>
+            </form>
+
+            {% if error %}
+            <div class="error">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+
+            {% if applicant %}
+            <div class="result {{ applicant.status|lower }}">
+                {% if applicant.status == 'Approved' %}
+                <div class="status-icon">✅</div>
+                <h2>Loan Approved!</h2>
+                <p>Congratulations {{ applicant.first_name }}!</p>
+                <div class="amount">GHS {{ applicant.loan }}</div>
+                <p>Your loan has been approved.</p>
+                <p>Please come in to collect your loan.</p>
+
+                {% elif applicant.status == 'Declined' %}
+                <div class="status-icon">❌</div>
+                <h2>Application Declined</h2>
+                <p>Sorry {{ applicant.first_name }}, your application was not successful this time.</p>
+                <p>Please visit us for more information.</p>
+
+                {% else %}
+                <div class="status-icon">⏳</div>
+                <h2>Under Review</h2>
+                <p>Hi {{ applicant.first_name }}, your application is still being reviewed.</p>
+                <div class="amount">GHS {{ applicant.loan }}</div>
+                <p>Please check back soon.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="back">
+            <a href="/">← Back to Loan App</a>
+        </div>
+    </div>
+</body>
+
+</html>

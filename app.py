@@ -215,5 +215,17 @@ def delete(id):
     return redirect(url_for('admin'))
 
 
+@app.route("/status", methods=["GET", "POST"])
+def status():
+    applicant = None
+    error = None
+    if request.method == "POST":
+        phone = request.form["phone"]
+        applicant = Applicant.query.filter_by(phone=phone).first()
+        if not applicant:
+            error = "No application found with this phone number."
+    return render_template("status.html", applicant=applicant, error=error)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
