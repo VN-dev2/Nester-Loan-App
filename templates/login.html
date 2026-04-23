@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nester Loan - Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #0f3460;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: #a0aec0;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0f3460;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 52, 96, 0.4);
+        }
+
+        .error {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+            border-radius: 10px;
+            padding: 12px;
+            color: #c53030;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .back {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .back a {
+            color: #a0aec0;
+            text-decoration: none;
+        }
+
+        .back a:hover {
+            color: #0f3460;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="logo">🔐</div>
+        <h1>Admin Access</h1>
+        <p>Nester Loan Management Panel</p>
+
+        {% if error %}
+        <div class="error">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <form action="/admin/login" method="POST">
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">🔓 Login to Admin Panel</button>
+        </form>
+
+        <div class="back">
+            <a href="/">← Back to Loan App</a>
+        </div>
+    </div>
+</body>
+
+</html>

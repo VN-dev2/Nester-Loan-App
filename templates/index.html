@@ -16,7 +16,8 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1400') center/cover no-repeat fixed;
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -285,19 +286,19 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" name="first_name" placeholder="John" required>
+                        <input type="text" name="first_name" placeholder="Enter your first name" required>
                     </div>
                     <div class="form-group">
                         <label>Surname</label>
-                        <input type="text" name="last_name" placeholder="Doe" required>
+                        <input type="text" name="last_name" placeholder="Enter your  surname" required>
                     </div>
                     <div class="form-group">
                         <label>Year of Birth</label>
-                        <input type="number" name="year_of_birth" placeholder="1995" required>
+                        <input type="number" name="year_of_birth" placeholder="e.g. 2005" required>
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" name="phone" placeholder="024XXXXXXX" required>
+                        <input type="tel" name="phone" placeholder="e.g.  055xxxxxxx" required>
                     </div>
                     <div class="form-group">
                         <label>Marital Status</label>
@@ -308,11 +309,11 @@
                     </div>
                     <div class="form-group">
                         <label>Occupation</label>
-                        <input type="text" name="occupation" placeholder="Teacher" required>
+                        <input type="text" name="occupation" placeholder="e.g.  Nurse, Trader,Teacher" required>
                     </div>
                     <div class="form-group">
                         <label>House Number</label>
-                        <input type="text" name="house_number" placeholder="No. 12" required>
+                        <input type="text" name="house_number" placeholder="e.g.  Plot 3 Block V" required>
                     </div>
                     <div class="form-group">
                         <label>Address</label>
@@ -389,7 +390,7 @@
                 {% endfor %}
 
                 <div class="success-msg">
-                    🎉 Come on Thursday 24th April to collect your loan.<br>
+                    🎉 Come on {{ pickup_date }} to collect your loan.<br>
                     Thank You for Choosing Nester Loan!
                 </div>
             </div>
