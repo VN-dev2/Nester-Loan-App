@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nester Loan App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+        }
+
+        .result {
+            margin-top: 24px;
+            padding: 20px;
+            background: #eafaf1;
+            border-radius: 8px;
+        }
+
+        .error {
+            margin-top: 24px;
+            padding: 20px;
+            background: #fdecea;
+            border-radius: 8px;
+            color: red;
+        }
+
+        .schedule p {
+            margin: 4px 0;
+            color: #2c3e50;
+        }
+
+        label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏦 Nester Loan App</h1>
+
+        <form action="/calculate" method="POST">
+            <label>First Name</label>
+            <input type="text" name="first_name" required>
+
+            <label>Surname</label>
+            <input type="text" name="last_name" required>
+
+            <label>Year of Birth</label>
+            <input type="number" name="year_of_birth" required>
+
+            <label>Occupation</label>
+            <input type="text" name="occupation" required>
+
+            <label>Monthly Income (GHS)</label>
+            <input type="number" name="income" required>
+
+            <label>Loan Amount (GHS)</label>
+            <input type="number" name="loan" required>
+
+            <label>Do you accept the 21% interest rate?</label>
+            <select name="rate">
+                <option value="yes">Yes, I accept</option>
+                <option value="no">No, I decline</option>
+            </select>
+
+            <button type="submit">Apply for Loan</button>
+        </form>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if first_name %}
+        <div class="result">
+            <h2>✅ Loan Summary for Mr. {{ first_name }}</h2>
+            <p><strong>Loan Amount:</strong> GHS {{ loan }}</p>
+            <p><strong>Total with 21% Interest:</strong> GHS {{ total }}</p>
+            <p><strong>Weekly Payment:</strong> GHS {{ monthly }}</p>
+
+            <div class="schedule">
+                <h3>📅 Payment Schedule</h3>
+                {% for week in schedule %}
+                <p>{{ week }}</p>
+                {% endfor %}
+            </div>
+
+            <p>Come on Thursday 24th April for your Loan.<br>
+                Thank You for Choosing Nester Loan! 🎉</p>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
