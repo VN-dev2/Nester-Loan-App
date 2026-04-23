@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from functools import wraps
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'sqlite:///nester_loan.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nester_loan_db_user:peAO61bW2DK2LFizOyJWBHgyb4MIAeCM@dpg-d7kq4o5ckfvc73f4i3vg-a.frankfurt-postgres.render.com/nester_loan_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'nester2026secretkey'
 db = SQLAlchemy(app)
 
