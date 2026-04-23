@@ -65,7 +65,11 @@ def calculate():
     age = 2026 - year_of_birth
 
     if age < 18:
-        return render_template("index.html", error=f"Sorry {first_name}, you are {age} years old and ineligible.")
+        return render_template("ineligible.html",
+                               first_name=first_name,
+                               age=age,
+                               reason="You must be at least 18 years old to apply."
+                               )
 
     occupation = request.form["occupation"]
     income = float(request.form["income"])
@@ -78,14 +82,26 @@ def calculate():
     rate = request.form["rate"]
 
     if rate != "yes":
-        return render_template("index.html", error="Sorry, we lost a member. We hope to see you again!")
+        return render_template("ineligible.html",
+                               first_name=first_name,
+                               age=age,
+                               reason="You declined the 21% interest rate."
+                               )
 
     if not agreed:
-        return render_template("index.html", error="You must agree to the repayment oath to proceed.")
+        return render_template("ineligible.html",
+                               first_name=first_name,
+                               age=age,
+                               reason="You must agree to the repayment oath to proceed."
+                               )
 
     existing = Applicant.query.filter_by(phone=phone).first()
     if existing:
-        return render_template("index.html", error=f"Sorry {first_name}, an application with this phone number already exists.")
+        return render_template("ineligible.html",
+                               first_name=first_name,
+                               age=age,
+                               reason="An application with this phone number already exists."
+                               )
 
     money = loan * (21/100)
     total = money + loan
@@ -116,7 +132,7 @@ def calculate():
     pickup_date = datetime.now() + timedelta(days=7)
     pickup_date_str = pickup_date.strftime("%A, %d %B %Y")
 
-    return render_template("index.html",
+    return render_template("thankyou.html",
                            first_name=first_name,
                            loan=loan,
                            total=f"{total:.2f}",

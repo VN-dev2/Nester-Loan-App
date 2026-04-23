@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Received - Nester Loan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #a0aec0;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-banner {
+            background: linear-gradient(135deg, #f0fff4, #e6fffa);
+            border: 2px solid #68d391;
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .success-banner .icon {
+            font-size: 52px;
+            margin-bottom: 10px;
+        }
+
+        .success-banner h2 {
+            color: #276749;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .success-banner p {
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f3460;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #f0f4f8;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .result-item span {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-item p {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f3460;
+            margin-top: 4px;
+        }
+
+        .schedule-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #2d3748;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 24px;
+            transition: transform 0.2s;
+        }
+
+        .status-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back a {
+            color: #a0aec0;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 400px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Nester Loan</h1>
+            <p>Application Summary</p>
+        </div>
+
+        <div class="card">
+            <div class="success-banner">
+                <div class="icon">📋</div>
+                <h2>Application Received!</h2>
+                <p>Thank you {{ first_name }}! Your application has been submitted successfully and is under review.</p>
+            </div>
+
+            <div class="section-title">Loan Summary</div>
+            <div class="result-grid">
+                <div class="result-item">
+                    <span>Loan Amount</span>
+                    <p>GHS {{ loan }}</p>
+                </div>
+                <div class="result-item">
+                    <span>Total + Interest</span>
+                    <p>GHS {{ total }}</p>
+                </div>
+                <div class="result-item">
+                    <span>Weekly Payment</span>
+                    <p>GHS {{ monthly }}</p>
+                </div>
+                <div class="result-item">
+                    <span>Duration</span>
+                    <p>12 Weeks</p>
+                </div>
+            </div>
+
+            <div class="section-title">Payment Schedule</div>
+            {% for week in schedule %}
+            <div class="schedule-item">
+                <span>{{ week.split(' - ')[0] }}</span>
+                <span>{{ week.split(' - ')[1] }}</span>
+            </div>
+            {% endfor %}
+
+            <div class="section-title">Pickup Date</div>
+            <div class="result-item" style="margin-bottom: 8px;">
+                <span>Expected Date</span>
+                <p>{{ pickup_date }}</p>
+            </div>
+
+            <a href="/status" class="status-btn">🔍 Check My Application Status</a>
+        </div>
+
+        <div class="back">
+            <a href="/">← Back to Loan App</a>
+        </div>
+    </div>
+</body>
+
+</html>
