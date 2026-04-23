@@ -19,6 +19,11 @@ class Applicant(db.Model):
     loan = db.Column(db.Float)
     total = db.Column(db.Float)
     monthly = db.Column(db.Float)
+    phone = db.Column(db.String(20))
+    address = db.Column(db.String(200))
+    house_number = db.Column(db.String(50))
+    marital_status = db.Column(db.String(20))
+    agreed = db.Column(db.Boolean, default=False)
     date_applied = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -45,10 +50,18 @@ def calculate():
     occupation = request.form["occupation"]
     income = float(request.form["income"])
     loan = float(request.form["loan"])
+    phone = request.form["phone"]
+    address = request.form["address"]
+    house_number = request.form["house_number"]
+    marital_status = request.form["marital_status"]
+    agreed = request.form.get("agreed") == "on"
     rate = request.form["rate"]
 
     if rate != "yes":
         return render_template("index.html", error="Sorry, we lost a member. We hope to see you again!")
+
+    if not agreed:
+        return render_template("index.html", error="You must agree to the repayment oath to proceed.")
 
     money = loan * (21/100)
     total = money + loan
@@ -63,7 +76,12 @@ def calculate():
         income=income,
         loan=loan,
         total=total,
-        monthly=monthly
+        monthly=monthly,
+        phone=phone,
+        address=address,
+        house_number=house_number,
+        marital_status=marital_status,
+        agreed=agreed
     )
     db.session.add(applicant)
     db.session.commit()

@@ -5,138 +5,401 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nester Loan App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            padding: 40px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            padding: 40px 20px;
         }
 
         .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        h1 {
-            color: #2c3e50;
+        .header {
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f3460;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 24px 0 12px 0;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #f0f4f8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input,
         select {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #2d3748;
+            transition: border-color 0.3s;
             width: 100%;
-            padding: 10px;
-            margin: 8px 0 16px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0f3460;
+        }
+
+        .oath-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .oath-box p {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .oath-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .oath-check input {
+            width: 18px;
+            height: 18px;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #1a252f;
+        .oath-check label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f3460;
+            text-transform: none;
+            letter-spacing: 0;
+            cursor: pointer;
         }
 
-        .result {
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
             margin-top: 24px;
-            padding: 20px;
-            background: #eafaf1;
-            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 52, 96, 0.4);
         }
 
         .error {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+            border-radius: 12px;
+            padding: 16px;
+            color: #c53030;
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .result {
+            background: linear-gradient(135deg, #f0fff4, #e6fffa);
+            border: 2px solid #68d391;
+            border-radius: 16px;
+            padding: 30px;
             margin-top: 24px;
-            padding: 20px;
-            background: #fdecea;
+        }
+
+        .result h2 {
+            color: #276749;
+            font-size: 20px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-item {
+            background: white;
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .result-item span {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-item p {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f3460;
+            margin-top: 4px;
+        }
+
+        .schedule-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #276749;
+            margin-bottom: 10px;
+        }
+
+        .schedule-item {
+            background: white;
             border-radius: 8px;
-            color: red;
+            padding: 10px 16px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #2d3748;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .schedule p {
-            margin: 4px 0;
-            color: #2c3e50;
+        .success-msg {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #276749;
+            font-weight: 500;
         }
 
-        label {
-            font-weight: bold;
-            color: #2c3e50;
+        .admin-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .admin-link a {
+            color: #a0aec0;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🏦 Nester Loan App</h1>
-
-        <form action="/calculate" method="POST">
-            <label>First Name</label>
-            <input type="text" name="first_name" required>
-
-            <label>Surname</label>
-            <input type="text" name="last_name" required>
-
-            <label>Year of Birth</label>
-            <input type="number" name="year_of_birth" required>
-
-            <label>Occupation</label>
-            <input type="text" name="occupation" required>
-
-            <label>Monthly Income (GHS)</label>
-            <input type="number" name="income" required>
-
-            <label>Loan Amount (GHS)</label>
-            <input type="number" name="loan" required>
-
-            <label>Do you accept the 21% interest rate?</label>
-            <select name="rate">
-                <option value="yes">Yes, I accept</option>
-                <option value="no">No, I decline</option>
-            </select>
-
-            <button type="submit">Apply for Loan</button>
-        </form>
-
-        {% if error %}
-        <div class="error">
-            <p>{{ error }}</p>
+        <div class="header">
+            <div class="logo">🏦</div>
+            <h1>Nester Loan App</h1>
+            <p>Fast, reliable loans for everyone</p>
         </div>
-        {% endif %}
 
-        {% if first_name %}
-        <div class="result">
-            <h2>✅ Loan Summary for Mr. {{ first_name }}</h2>
-            <p><strong>Loan Amount:</strong> GHS {{ loan }}</p>
-            <p><strong>Total with 21% Interest:</strong> GHS {{ total }}</p>
-            <p><strong>Weekly Payment:</strong> GHS {{ monthly }}</p>
+        <div class="card">
+            <form action="/calculate" method="POST">
 
-            <div class="schedule">
-                <h3>📅 Payment Schedule</h3>
-                {% for week in schedule %}
-                <p>{{ week }}</p>
-                {% endfor %}
+                <div class="section-title">Personal Information</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="first_name" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Surname</label>
+                        <input type="text" name="last_name" placeholder="Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Year of Birth</label>
+                        <input type="number" name="year_of_birth" placeholder="1995" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" placeholder="024XXXXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status</label>
+                        <select name="marital_status">
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" name="occupation" placeholder="Teacher" required>
+                    </div>
+                    <div class="form-group">
+                        <label>House Number</label>
+                        <input type="text" name="house_number" placeholder="No. 12" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" name="address" placeholder="Accra, Ghana" required>
+                    </div>
+                </div>
+
+                <div class="section-title">Loan Details</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Monthly Income (GHS)</label>
+                        <input type="number" name="income" placeholder="2000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Loan Amount (GHS)</label>
+                        <input type="number" name="loan" placeholder="5000" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Interest Rate</label>
+                        <select name="rate">
+                            <option value="yes">I accept the 21% interest rate</option>
+                            <option value="no">I decline</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-title">Repayment Oath</div>
+                <div class="oath-box">
+                    <p>I hereby solemnly agree that I will repay the loan amount plus interest in 12 consecutive weekly
+                        installments as agreed. I understand that failure to repay may result in legal action.</p>
+                    <div class="oath-check">
+                        <input type="checkbox" name="agreed" id="agreed" required>
+                        <label for="agreed">Yes, I agree to the repayment terms and oath</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">🚀 Apply for Loan</button>
+            </form>
+
+            {% if error %}
+            <div class="error">
+                ⚠️ {{ error }}
             </div>
+            {% endif %}
 
-            <p>Come on Thursday 24th April for your Loan.<br>
-                Thank You for Choosing Nester Loan! 🎉</p>
+            {% if first_name %}
+            <div class="result">
+                <h2>✅ Loan Approved for Mr. {{ first_name }}!</h2>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span>Loan Amount</span>
+                        <p>GHS {{ loan }}</p>
+                    </div>
+                    <div class="result-item">
+                        <span>Total + Interest</span>
+                        <p>GHS {{ total }}</p>
+                    </div>
+                    <div class="result-item">
+                        <span>Weekly Payment</span>
+                        <p>GHS {{ monthly }}</p>
+                    </div>
+                    <div class="result-item">
+                        <span>Duration</span>
+                        <p>12 Weeks</p>
+                    </div>
+                </div>
+
+                <div class="schedule-title">📅 Payment Schedule</div>
+                {% for week in schedule %}
+                <div class="schedule-item">
+                    <span>{{ week.split(' - ')[0] }}</span>
+                    <span>{{ week.split(' - ')[1] }}</span>
+                </div>
+                {% endfor %}
+
+                <div class="success-msg">
+                    🎉 Come on Thursday 24th April to collect your loan.<br>
+                    Thank You for Choosing Nester Loan!
+                </div>
+            </div>
+            {% endif %}
+
         </div>
-        {% endif %}
 
+        <div class="admin-link">
+            <a href="/admin">Admin Access</a>
+        </div>
     </div>
 </body>
 
