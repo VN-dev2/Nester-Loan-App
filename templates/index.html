@@ -361,7 +361,7 @@
 
             {% if first_name %}
             <div class="result">
-                <h2>✅ Loan Approved for Mr. {{ first_name }}!</h2>
+                <h2>📋 Application Received, Mr. {{ first_name }}!</h2>
                 <div class="result-grid">
                     <div class="result-item">
                         <span>Loan Amount</span>
@@ -390,8 +390,11 @@
                 {% endfor %}
 
                 <div class="success-msg">
-                    🎉 Come on {{ pickup_date }} to collect your loan.<br>
-                    Thank You for Choosing Nester Loan!
+                    <p>✅ Your application has been submitted successfully.</p>
+                    <p>Use your phone number to check your status at any time.</p>
+                    <a href="/status"
+                        style="display:block; margin-top:12px; background:#0f3460; color:white; padding:10px; border-radius:10px; text-decoration:none; text-align:center;">🔍
+                        Check My Status</a>
                 </div>
             </div>
             {% endif %}
